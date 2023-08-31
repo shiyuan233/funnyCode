@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html{
+        /* font-size: 12px; */
+      }
+      body{
+        /* font-size: 10px; */
+        height: 3000px;
+      }
+      .main {
+        width: 14em;
+        height: 14em; /*1.5 times larger than you think is needed for the image*/
+        background: pink;
+        padding: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">你好</div>
+  </body>
+</html>
+<script>
+  function debounce(func, wait) {
+    let timer = null; 
+    return function(){
+        if(timer) clearTimeout(timer)
+        timer = setTimeout(()=>{
+            func()
+            clearTimeout(timer)
+            timer = null
+        }, wait);
+    }
+}
+function log(){
+  console.log(111)
+}
+document.body.onscroll = debounce(log,1000)
+</script>

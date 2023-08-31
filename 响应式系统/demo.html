@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  let bucket = new WeakMap()
+  let activeEffect
+  let effectStack = []
+  function effect(fn, options) {
+    effectFn = () => {
+      cleanup(effectFn)
+      activeEffect = effectFn
+      effectStack.push(effectFn)
+      fn()
+      effectStack.pop()
+      activeEffect = effectStack[effectStack.length - 1]
+    }
+    effectFn.deps = []
+    effectFn.options = options
+    effectFn()
+  }
+  const data = {
+    name: 'gsy',
+    age: 1,
+  }
+
+  const obj = new Proxy(data, {
+    get(target, key) {
+      track(target, key)
+      return target[key]
+    },
+    set(target, key, value) {
+      target[key] = value
+      trigger(target, key)
+      return true
+    },
+  })
+  function track(target, key) {
+    if (!activeEffect) return
+    let depsMap = bucket.get(target)
+    if (!depsMap) {
+      bucket.set(target, (depsMap = new Map()))
+    }
+    let deps = depsMap.get(key)
+    if (!deps) {
+      depsMap.set(key, (deps = new Set()))
+    }
+    deps.add(activeEffect)
+    activeEffect.deps.push(deps)
+  }
+
+  function trigger(target, key) {
+    let depsMap = bucket.get(target)
+    let deps = depsMap.get(key)
+    const effectsToRun = new Set()
+    deps &&
+      deps.forEach((effectFn) => {
+        if (effectFn !== activeEffect) {
+          effectsToRun.add(effectFn)
+        }
+      })
+    effectsToRun.forEach((effect) => {
+      if (effect.options?.scheduler) {
+        effect.options.scheduler(effect)
+      } else {
+        effect()
+      }
+    })
+  }
+
+  function cleanup(effectFn) {
+    for (let i = 0; i < effectFn.deps.length; i++) {
+      const deps = effectFn.deps[i]
+      deps.delete(effectFn)
+    }
+    effectFn.deps.length = 0
+  }
+  // effect(() => {
+  //   console.log('effectFn1')
+  //   effect(() => {
+  //     console.log('effectFn2')
+  //     let div = document.createElement('div')
+  //     div.innerHTML = obj.age
+  //     document.body.appendChild(div)
+  //   })
+  //   document.body.innerHTML = obj.name
+  // })
+
+  let jobQueen = new Set()
+  let p = Promise.resolve()
+  let isFlushing = false
+  function flushJob() {
+    if (isFlushing) return
+    isFlushing = true
+    p.then(() => {
+      jobQueen.forEach((job) => job())
+    }).finally(() => {
+      isFlushing = false
+    })
+  }
+  effect(
+    () => {
+      console.log(obj.age)
+    },
+    {
+      scheduler(fn) {
+        jobQueen.add(fn)
+        flushJob()
+        // setTimeout(fn);
+      },
+    }
+  )
+  obj.age++
+  obj.age++
+  // console.log('end')
+</script>

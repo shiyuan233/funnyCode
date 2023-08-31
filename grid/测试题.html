@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 代码编写区域 */
+    body{
+      margin: 0;
+      border: 0;
+      padding: 0;
+    }
+    .main{
+      display: grid;
+      grid-template-columns: 300px 1fr ;
+      grid-template-rows: 100px calc(100vh - 220px) 100px;
+      gap: 10px;
+      background: skyblue;
+    }
+    .main div{
+      background: pink;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .main .header{
+      grid-area: 1/1/2/span 2;
+    }
+   
+    .main .footer{
+      grid-area: 3/1/4/span 2;
+    }
+    </style>
+</head>
+<body>
+  <div class="main">
+    <div class="header">header</div>
+    <div class="left">left</div>
+    <div class="center">center</div>
+    <div class="footer">footer</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+export default ' 但这只是个简易版本'

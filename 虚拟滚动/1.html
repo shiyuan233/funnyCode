@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>vue实现一个虚拟列表</h2>
+      <div class="container">
+        <div class="container-list" :style="listStyle">
+          <div class="container-list-viewport">
+            <div class="item" v-for="(item,index) in list">{{item}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="https://mp-f75f68f8-621e-4f98-93d3-2e0fa50c53d2.cdn.bspapp.com/cloudstorage/a1bb649f-5c41-489e-9fa4-16d5a63e7e15.apk">11111</a>
+  </body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      list: [], //超长的显示数据
+      itemHeight: 30, //每一列的高度
+      origin: [],
+     
+    },
+    mounted() {
+      for (let i = 0; i < 100; i++) {
+        this.origin.push(i)
+      }
+      this.list = this.origin.slice(0, 15)
+    },
+  })
+</script>
+<style>
+  .container {
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+    overflow-y: auto;
+    position: relative;
+  }
+  .container-list {
+    position: absolute;
+    width: 100%;
+  }
+</style>

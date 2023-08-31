@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .main {
+        width: 30vw;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-flow: row dense;
+        grid-auto-rows: 10vh;
+        gap: 1em;
+      }
+      .main div:nth-of-type(3n + 1) {
+        grid-row: auto/span 3;
+      }
+      .main div:nth-of-type(3n + 2) {
+        grid-row: auto/span 4;
+      }
+      .main div:nth-of-type(3n + 3) {
+        grid-row: auto/span 5;
+      }
+      .main div img {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div>
+        <img src="https://picsum.photos/200/600.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/500.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/500.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/800.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/900.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/400.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/500.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/400.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/500.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/600.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/800.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/900.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/200.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/300.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/400.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/500.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/300.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/800.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/900.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/200.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/300.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/400.jpg" alt="" />
+      </div>
+      <div>
+        <img src="https://picsum.photos/200/500.jpg" alt="" />
+      </div>
+    </div>
+  </body>
+</html>
